@@ -1,44 +1,16 @@
 package piscine
 
-func Rot14(str string) string {
-	runes := []rune(str)
-	var alphabet [52]rune
-	var alphabig [52]rune
-
-	for i, j, k := 0, 'a', 26; j <= 'z'; i, j, k = i+1, j+1, k+1 {
-		alphabet[i] = j
-		alphabet[k] = j
-	}
-
-	for i, j, k := 0, 'A', 26; j <= 'Z'; i, j, k = i+1, j+1, k+1 {
-		alphabig[i] = j
-		alphabig[k] = j
-	}
-
-	for i, r := range runes {
-		if r >= 'a' && r <= 'z' {
-			for q := 0; q < 26; q++ {
-				alphindex := q
-				if r == alphabet[alphindex] {
-					runes[i] = alphabet[alphindex+14]
-				}
-			}
-
-		} else if r >= 'A' && r <= 'Z' {
-			for q := 0; q < 26; q++ {
-				alphindex := q
-				if r == alphabig[alphindex] {
-					runes[i] = alphabig[alphindex+14]
-				}
-			}
+func Rot14(s string) string {
+	var result string
+	for _, char := range s {
+		switch {
+		case char >= 'a' && char <= 'z':
+			result += string((char-'a'+14)%26 + 'a')
+		case char >= 'A' && char <= 'Z':
+			result += string((char-'A'+14)%26 + 'A')
+		default:
+			result += string(char)
 		}
 	}
-
-	newStr := ""
-	for _, r := range runes {
-		newStr += string(r)
-	}
-
-	return newStr
-
+	return result
 }
