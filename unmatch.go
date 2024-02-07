@@ -1,18 +1,23 @@
 package piscine
 
-func Unmatch(arr []int) int {
-
-	var qount int
-
-	for _, el := range arr {
-		qount = 0
-		for _, v := range arr {
-			if v == el {
-				qount++
+func Unmatch(a []int) int {
+	for i := 0; i < len(a)-1; i++ {
+		for j := i + 1; j < len(a); j++ {
+			if a[i] > a[j] {
+				a[i], a[j] = a[j], a[i]
 			}
 		}
-		if qount%2 != 0 {
-			return el
+	}
+
+	for 0 < len(a) {
+		if len(a)-1 != 0 {
+			if a[0] == a[1] {
+				a = a[2:]
+			} else {
+				return a[0]
+			}
+		} else {
+			return a[0]
 		}
 	}
 	return -1
